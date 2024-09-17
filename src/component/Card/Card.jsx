@@ -2,10 +2,11 @@ import './Card.css';
 import { useState } from 'react';
 import { AiOutlineHeart, AiOutlineShoppingCart, AiFillStar } from "react-icons/ai"
 import { FiMessageSquare } from 'react-icons/fi';
-
+import { useNavigate } from 'react-router-dom'; // React Router-dan foydalanamiz
 import "number-brm";
 
 function Card() {
+    const navigate = useNavigate(); // useNavigate-ni ishlatamiz
     const [event] = useState([
         {
             id: 1,
@@ -102,7 +103,11 @@ function Card() {
 
 
 
-    ])
+    ]);
+
+    const handleBuyNow = (product) => {
+        navigate('/product-info', { state: product }); // Mahsulot ma'lumotlarini ikkinchi sahifaga o'tkazamiz
+    };
 
 
 
@@ -115,7 +120,6 @@ function Card() {
                     return (
                         <div key={e.id} className='card'>
                             <div className='card__image'>
-
                                 <img src={e.img} alt="" />
                             </div>
                             <button className="card__heart">
@@ -154,9 +158,11 @@ function Card() {
                             </div>
                             <br />
                             <br />
-                            <button className='btn btn-primary mb-2 taptoCart' variant='primary'>
-                                <p>Bir klikda sotib olish</p>
-
+                            <button
+                                className='btn btn-primary mb-2 taptoCart'
+                                onClick={() => handleBuyNow(e)} // Tugma bosilganda handleBuyNow funksiyasi chaqiriladi
+                            >
+                                <p>Mahsulotni korish</p>
                             </button>
 
 
